@@ -9,6 +9,14 @@ workflows:
     steps:
     - git-clone@8: {}
     - bundle::cached-xcode-archive: {}
+app:
+  envs:
+  - opts:
+      is_expand: false
+    BITRISE_SCHEME: "Demo"
+  - opts:
+      is_expand: false
+    BITRISE_PROJECT_PATH: "Demo.xcodeproj"
 meta:
   bitrise.io:
     stack: osx-xcode-16.3.x
