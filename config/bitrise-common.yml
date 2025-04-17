@@ -1,0 +1,21 @@
+format_version: 13
+step_bundles:
+  cached-xcode-archive:
+    envs:
+    - PROFILES_FALLBACK_PATH: /Users/vagrant/Library/MobileDevice/Provisioning Profiles
+    steps:
+    - restore-cache:
+        run_if: '{{enveq "USE_CACHED_PROVISIONING_PROFILES" "true"}}'
+        inputs:
+        - key: profile-cache-key-{{ checksum "$PROFILES_FALLBACK_PATH/**/*.mobileprovision" }}
+    - xcode-archive:
+        inputs:
+        - fallback_provisioning_profile_url_list: $PROFILES_FALLBACK_PATH
+        - automatic_code_signing: "api-key"
+    - save-cache:
+        run_if: '{{enveq "USE_CACHED_PROVISIONING_PROFILES" "true"}}'
+        inputs:
+        - key: profile-cache-key-{{ checksum "$PROFILES_FALLBACK_PATH/**/*.mobileprovision" }}
+        - is_key_unique: 'true'
+        - paths: |-
+            $PROFILES_FALLBACK_PATH

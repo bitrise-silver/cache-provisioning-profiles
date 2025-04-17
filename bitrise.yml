@@ -1,0 +1,15 @@
+---
+format_version: '13'
+default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
+project_type: macos
+include:
+  - path: config/bitrise-common.yml
+workflows:
+  primary:
+    steps:
+    - git-clone@8: {}
+    - bundle::cached-xcode-archive: {}
+meta:
+  bitrise.io:
+    stack: osx-xcode-16.3.x
+    machine_type_id: g2.mac.large
